@@ -1,0 +1,15 @@
+Makefile
+_tags
+_build/
+configure
+myocamlbuild.ml
+setup.data
+setup.log
+setup.ml
+src/META
+src/SecureTransport.mldylib
+src/SecureTransport.mllib
+src/SecureTransport.mlpack
+*.sw*
+/stelnet.*
+*.clib
