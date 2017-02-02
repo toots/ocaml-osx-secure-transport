@@ -163,17 +163,14 @@ let _close = foreign ~from:lib "SSLClose"
 let close ctx =
   check_err(_close ctx)
 
-let kSecImportExportPassphrase = foreign_value ~from:lib "kSecImportExportPassphrase" (ptr void)
+let kSecImportExportPassphrase =
+  !@ (foreign_value ~from:lib "kSecImportExportPassphrase" (ptr void))
 
-let kSecImportExportPassphrase = !@ kSecImportExportPassphrase
+let kSecImportItemIdentity =
+  !@ (foreign_value ~from:lib "kSecImportItemIdentity" (ptr void))
 
-let kSecImportItemIdentity = foreign_value ~from:lib "kSecImportItemIdentity" (ptr void)
-
-let kSecImportItemIdentity = !@ kSecImportItemIdentity
-
-let kSecImportItemCertChain = foreign_value ~from:lib "kSecImportItemCertChain" (ptr void)
-
-let kSecImportItemCertChain = !@ kSecImportItemCertChain
+let kSecImportItemCertChain =
+  !@ (foreign_value ~from:lib "kSecImportItemCertChain" (ptr void))
 
 let _import_p12_certificate = foreign ~from:lib "SecPKCS12Import"
   (ptr void @-> ptr void @-> ptr (ptr void) @-> returning int)
