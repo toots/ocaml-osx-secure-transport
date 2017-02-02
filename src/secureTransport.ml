@@ -245,10 +245,7 @@ let import_p12_certificate ?password path =
     in
     (identity,certificates)) items
   in
-  Array.to_list items 
-
-let create_array = foreign "CFArrayCreate"
-  (ptr void @-> ptr (ptr void) @-> int @-> ptr void @-> returning (ptr void))
+  Array.to_list items
 
 let _set_certificate = foreign ~from:lib "SSLSetCertificate"
   (ptr void @-> ptr void @-> returning int)
