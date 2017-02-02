@@ -35,6 +35,9 @@ let kCFStringEncodingUTF8 = 0x08000100
 let get_c_string = foreign "CFStringGetCString"
   (ptr void @-> ocaml_bytes @-> int @-> int @-> returning int)
 
+let strlen = foreign "strlen"
+  (ocaml_bytes @-> returning size_t)
+
 let string_of_cfstring str =
   let str_len = string_length str in
   let buf_len =
@@ -45,7 +48,7 @@ let string_of_cfstring str =
     get_c_string str (ocaml_bytes_start buf) buf_len kCFStringEncodingUTF8
   in
   if ret = 0 then raise Not_found;
-  buf
+  Bytes.sub buf 0 (Size_t.to_int (strlen (ocaml_bytes_start buf)))
 
 let _release = foreign "CFRelease"
   (ptr void @-> returning void)
