@@ -67,7 +67,7 @@ let string_of_error_code code =
 let () =
   Printexc.register_printer (function
     | Error code ->
-        Some (Printf.sprintf "SecureRandom.Error(%d): %s" code (string_of_error_code code))
+        Some (Printf.sprintf "SecureTransport.Error(%d): %s" code (string_of_error_code code))
     | _ -> None)
 
 let fd_io_typ = funptr
