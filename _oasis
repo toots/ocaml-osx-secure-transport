@@ -19,5 +19,5 @@ Executable stelnet
   Path: examples
   MainIs: stelnet.ml
   CompiledObject: native
-  BuildDepends: threads, secure-transport
+  BuildDepends: threads, osx-secure-transport
   Install: false
