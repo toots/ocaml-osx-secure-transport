@@ -190,6 +190,9 @@ let array_count = foreign "CFArrayGetCount"
 let array_get_at_index = foreign "CFArrayGetValueAtIndex"
   (ptr void @-> int @-> returning (ptr void))
 
+let create_array = foreign "CFArrayCreate"
+  (ptr void @-> ptr (ptr void) @-> int @-> ptr void @-> returning (ptr void))
+
 let create_string = foreign "CFStringCreateWithCString"
   (ptr void @-> ocaml_bytes @-> int @-> returning (ptr void))
 
@@ -241,12 +244,6 @@ let import_p12_certificate ?password path =
   in
   Array.to_list items 
 
-let array_count = foreign "CFArrayGetCount"
-  (ptr void @-> returning int)
-
-let array_get = foreign "CFArrayGetValueAtIndex"
-  (ptr void @-> int @-> returning (ptr void))
-
 let create_array = foreign "CFArrayCreate"
   (ptr void @-> ptr (ptr void) @-> int @-> ptr void @-> returning (ptr void))
 
@@ -260,7 +257,7 @@ let set_certificate ctx (identity,certificates) =
   in
   CArray.set a 0 identity;
   for n = 1 to c do
-    CArray.set a n (array_get certificates (n-1))
+    CArray.set a n (array_get_at_index certificates (n-1))
   done;
   let a =
     create_array null (CArray.start a) 2 null
