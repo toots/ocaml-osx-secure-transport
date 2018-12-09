@@ -48,7 +48,7 @@ let string_of_cfstring str =
     get_c_string str (ocaml_bytes_start buf) buf_len kCFStringEncodingUTF8
   in
   if ret = 0 then raise Not_found;
-  Bytes.sub buf 0 (Size_t.to_int (strlen (ocaml_bytes_start buf)))
+  Bytes.sub_string buf 0 (Size_t.to_int (strlen (ocaml_bytes_start buf)))
 
 let _release = foreign "CFRelease"
   (ptr void @-> returning void)
@@ -204,7 +204,7 @@ let import_p12_certificate ?password path =
       | Some v ->
           let keys = CArray.of_list (ptr void) [kSecImportExportPassphrase] in
           let v =
-            create_string null (ocaml_bytes_start v) kCFStringEncodingUTF8 
+            create_string null (ocaml_bytes_start (Bytes.of_string v)) kCFStringEncodingUTF8 
           in
           Gc.finalise _release v;
           let values = CArray.of_list (ptr void) [v] in

@@ -77,14 +77,14 @@ let _ =
                while !loop
                do
                  let r = SecureTransport.read ctx buf 0 bufsize in
-                   Printf.printf "%s%!" (String.sub buf 0 r)
+                   Printf.printf "%s%!" (String.sub (Bytes.to_string buf) 0 r)
                done
           ) ()
       );
     while !loop
     do
       let r = Unix.read Unix.stdin buf 0 bufsize in
-        if String.sub buf 0 4 = "exit" then
+        if String.sub (Bytes.to_string buf) 0 4 = "exit" then
           loop := false;
         ignore (SecureTransport.write ctx buf 0 r);
     done;
