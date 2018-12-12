@@ -1,5 +1,5 @@
 opam-version: "1.2"
-version: "dev"
+version: "0.1.1"
 maintainer: "Romain Beauxis <toots@rastageeks.org>"
 authors: "Romain Beauxis <toots@rastageeks.org>"
 homepage: "https://github.com/toots/ocaml-osx-secure-transport"
@@ -7,18 +7,12 @@ bug-reports: "https://github.com/toots/ocaml-osx-secure-transport/issues"
 license: "WTFPL"
 dev-repo: "https://github.com/toots/ocaml-osx-secure-transport.git"
 build: [
-  ["oasis" "setup"]
-  ["ocaml" "setup.ml" "-configure" "--prefix" prefix]
-  ["ocaml" "setup.ml" "-build"]
-]
-install: ["ocaml" "setup.ml" "-install"]
-remove: [
-  ["ocamlfind" "remove" "osx-secure-transport"]
+  ["dune" "build" "-p" name "-j" jobs]
 ]
 depends: [
   "ctypes" {>= "0.4"}
   "ctypes-foreign"
   "ocamlfind" {build}
-  "oasis" {build}
+  "dune" {build}
 ]
 available: [os = "darwin"]
